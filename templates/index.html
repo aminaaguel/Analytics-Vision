@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analytics - AI-Powered Sales Forecasting Platform</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="container py-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-10">
+                <!-- Header Section -->
+                <div class="text-center mb-5">
+                    <h1 class="display-4 text-primary fw-bold">Analytics</h1>
+                    <p class="lead text-muted mb-3">Advanced AI-Powered Sales Forecasting & Business Intelligence Platform</p>
+                    <div class="row justify-content-center">
+                        <div class="col-lg-8">
+                            <div class="alert alert-light border">
+                                <small class="text-muted">
+                                    <i class="fas fa-rocket me-2"></i>
+                                    Transform your sales data into actionable insights with machine learning and predictive analytics
+                                </small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Flash Messages -->
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                    {% if messages %}
+                        {% for category, message in messages %}
+                            <div class="alert alert-{{ 'danger' if category == 'error' else 'info' }} alert-dismissible fade show" role="alert">
+                                {{ message }}
+                                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                {% endwith %}
+
+                <!-- Main Analysis Card -->
+                <div class="card shadow-lg border-0">
+                    <div class="card-header bg-primary text-white py-3">
+                        <h5 class="mb-0">
+                            <i class="fas fa-analytics me-2"></i>
+                            Sales Data Analysis & Forecasting
+                        </h5>
+                    </div>
+                    <div class="card-body p-4">
+                        <form action="/result" method="post" enctype="multipart/form-data">
+                            
+                            <!-- Option 1: CSV Upload -->
+                            <div class="mb-4">
+                                <h6 class="text-primary mb-3">
+                                    <i class="fas fa-file-csv me-2"></i>
+                                    Option 1: Upload Historical Data
+                                </h6>
+                                <div class="mb-3">
+                                    <label for="file" class="form-label fw-semibold">Upload your sales data CSV file</label>
+                                    <input class="form-control" type="file" id="file" name="file" accept=".csv">
+                                    <div class="form-text">
+                                        <i class="fas fa-info-circle me-1"></i>
+                                        File must contain a "Sales" column with numerical values. Dates optional.
+                                    </div>
+                                </div>
+                            </div>
+
+                            <hr class="my-4">
+
+                            <!-- Option 2: Manual Input -->
+                            <div class="mb-4">
+                                <h6 class="text-primary mb-3">
+                                    <i class="fas fa-keyboard me-2"></i>
+                                    Option 2: Manual Data Entry
+                                </h6>
+                                <div class="row g-3">
+                                    <div class="col-md-6">
+                                        <label for="sales" class="form-label fw-semibold">Sales Value</label>
+                                        <input type="number" class="form-control" id="sales" name="sales" placeholder="Example: 2000">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="date" class="form-label fw-semibold">Reference Date</label>
+                                        <input type="date" class="form-control" id="date" name="date">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <hr class="my-4">
+
+                            <!-- Forecasting Parameters -->
+                            <div class="mb-4">
+                                <h6 class="text-primary mb-3">
+                                    <i class="fas fa-chart-line me-2"></i>
+                                    Forecasting Parameters
+                                </h6>
+                                <div class="row g-3">
+                                    <div class="col-md-6">
+                                        <label for="prediction-period" class="form-label fw-semibold">Forecast Period</label>
+                                        <select class="form-select" id="prediction-period" name="prediction_period">
+                                            <option value="days">Days</option>
+                                            <option value="weeks">Weeks</option>
+                                            <option value="months">Months</option>
+                                            <option value="years">Years</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="period-length" class="form-label fw-semibold">Duration</label>
+                                        <input type="number" class="form-control" id="period-length" name="period_length" value="30" min="1" max="1825">
+                                        <div class="form-text">
+                                            <i class="fas fa-clock me-1"></i>
+                                            Maximum: 5 years (1825 days)
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Submit Button -->
+                            <div class="d-grid">
+                                <button type="submit" class="btn btn-primary btn-lg py-3">
+                                    <i class="fas fa-brain me-2"></i>Generate AI-Powered Forecast & Insights
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Features Section -->
+                <div class="row mt-5">
+                    <div class="col-md-4 mb-4">
+                        <div class="text-center">
+                            <div class="feature-icon bg-primary text-white rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 60px; height: 60px;">
+                                <i class="fas fa-robot fa-lg"></i>
+                            </div>
+                            <h5>AI-Powered Forecasting</h5>
+                            <p class="text-muted">Advanced neural networks for accurate sales predictions and trend analysis.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-4">
+                        <div class="text-center">
+                            <div class="feature-icon bg-success text-white rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 60px; height: 60px;">
+                                <i class="fas fa-chart-bar fa-lg"></i>
+                            </div>
+                            <h5>Business Intelligence</h5>
+                            <p class="text-muted">Comprehensive analytics and actionable insights for strategic decision-making.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-4">
+                        <div class="text-center">
+                            <div class="feature-icon bg-info text-white rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 60px; height: 60px;">
+                                <i class="fas fa-bolt fa-lg"></i>
+                            </div>
+                            <h5>Real-time Processing</h5>
+                            <p class="text-muted">Optimized algorithms for fast processing of large datasets and instant results.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Footer -->
+                <div class="mt-4 text-center text-muted">
+                    <small>Analytics Platform - Enterprise-Grade Sales Forecasting Solution</small>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
